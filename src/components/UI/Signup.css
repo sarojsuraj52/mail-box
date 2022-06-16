@@ -7,6 +7,7 @@
 }
 
 .signup-container form {
+  margin: 0 1.5rem;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -46,4 +47,13 @@
 }
 .signup-container form button:hover {
   background-color: rgb(167, 0, 167);
+}
+
+.signup-container form #authswitch{
+    color: purple;
+    font-weight: 500;
+    cursor: pointer;
+}
+.signup-container form #authswitch:hover{
+    color: rgb(167, 0, 167);
 }
