@@ -1,0 +1,49 @@
+.sent {
+  display: flex;
+  flex-direction: column;
+  /* height: 100%;
+    width: 100%; */
+}
+.sent-list {
+  display: flex;
+  border-bottom: 1px solid grey;
+  align-items: center;
+  transition: all 0.2s;
+}
+.sent-list:hover{
+  background-color: rgb(241, 241, 241);
+}
+.sent-list a{
+  width: 80%;
+  display: flex;
+  padding: 1rem;
+}
+
+.sent-to {
+  width: 35%;
+}
+.sent-subject {
+  width: 40%;
+  margin-left: 2rem;
+}
+
+.paramsLink {
+  text-decoration: none;
+  color: black;
+}
+.paramsLink:hover {
+  color: purple;
+}
+
+.deleteMailBtn{
+  padding: 7px 12px;
+  border: none;
+  background-color: rgb(255, 61, 61);
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 5px;
+  color: white !important;
+}
+.deleteMailBtn:hover{
+  background-color: red;
+}

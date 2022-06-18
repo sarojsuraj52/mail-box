@@ -1,0 +1,27 @@
+.ViewReceivedMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.readBox{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1.2rem;
+    border: 1px solid purple;
+    min-width: 350px;
+}
+.row{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 1.2rem;
+}
+.row h2{
+    color: purple;
+}
+.row label{
+    font-weight: 600;
+    margin-right: 0.5rem;
+}

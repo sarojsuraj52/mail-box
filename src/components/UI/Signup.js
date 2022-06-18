@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth-slice";
 import "./Signup.css";
 
+
 const Signup = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
   const dispatch = useDispatch();
+  const history = useHistory()
 
   const [input, setInput] = useState({
     email: "",
@@ -68,9 +71,23 @@ const Signup = () => {
         throw new Error(errMsg);
       } else {
         if(isLogin){
-            dispatch(authActions.loggingIn(data.idToken))
+            dispatch(authActions.loggingIn({token:data.idToken,email:input.email}))
         }
         alert(`${isLogin?'Login Successful':"Signup Successful"}`);
+        setInput({
+          email: "",
+          password: "",
+          cpassword: "",
+        })
+
+
+        if(isLogin){
+          history.replace('/compose')
+        }
+        if(!isLogin){
+          dispatch(authActions.changeAuthMode())
+        }
+
       }
     } catch (err) {
       alert(err);
@@ -86,7 +103,7 @@ const Signup = () => {
           id="email"
           name="email"
           placeholder="SomeOne@gmail.com"
-          value={input.name}
+          value={input.email}
           onChange={changeHandler}
         />
         <input

@@ -1,15 +1,15 @@
-import "./Home.css";
+import "./Compose.css";
 import React, { useState } from "react";
-// import ReactQuill from "react-quill";
-// import "../../../node_modules/react-quill/dist/quill.snow.css";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  const SenderEmail = useSelector(state=> state.auth.email)
+  // const senderEmail4Url = SenderEmail.replace(/[@.]/g, '')
   const [input, setInput] = useState({
     email: "",
     subject: "",
   });
   const [message, setMessage] = useState("");
-
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setInput((prevInput) => {
@@ -29,11 +29,12 @@ const Home = () => {
 
     try {
       const res = await fetch(
-        "https://mail-box-1af88-default-rtdb.firebaseio.com/mails.json",
+        `https://mail-box-1af88-default-rtdb.firebaseio.com/mails.json`,
         {
           method: "POST",
           body: JSON.stringify({
-            email: input.email,
+            sender:SenderEmail,
+            receiver: input.email,
             subject: input.subject,
             message: message,
           }),
@@ -89,12 +90,6 @@ const Home = () => {
             />
           </div>
           <div className="subject">
-            {/* <ReactQuill
-           theme="snow"
-           placeholder="write something here..."
-           onChange={messageHandler}
-           value={message}
-           /> */}
             <textarea
               value={message}
               className="messageInput"
