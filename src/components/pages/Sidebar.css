@@ -45,3 +45,11 @@
 .pages {
   width: 80%;
 }
+#unread-mails-count {
+  background-color: red;
+  color: white;
+  font-weight: 600;
+  border-radius: 100px;
+  padding: 1px 5px;
+  font-size: 12px;
+}

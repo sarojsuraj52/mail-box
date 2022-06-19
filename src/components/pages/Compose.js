@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
   const SenderEmail = useSelector(state=> state.auth.email)
-  // const senderEmail4Url = SenderEmail.replace(/[@.]/g, '')
   const [input, setInput] = useState({
     email: "",
     subject: "",
@@ -37,6 +36,7 @@ const Home = () => {
             receiver: input.email,
             subject: input.subject,
             message: message,
+            read:false
           }),
           headers: {
             "Content-Type": "application/json",

@@ -83,6 +83,7 @@ const Signup = () => {
 
         if(isLogin){
           history.replace('/compose')
+          window.location.reload()
         }
         if(!isLogin){
           dispatch(authActions.changeAuthMode())

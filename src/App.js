@@ -1,45 +1,50 @@
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import Signup from "./components/UI/Signup";
 import Sidebar from "./components/pages/Sidebar";
 import "./App.css";
 import { useSelector } from "react-redux/es/exports";
-import Compose  from './components/pages/Compose'
+import Compose from "./components/pages/Compose";
 import Sent from "./components/pages/Sent";
-import Inbox from './components/pages/Inbox'
+import Inbox from "./components/pages/Inbox";
 import ViewReceivedMessage from "./components/pages/ViewReceivedMessage";
+import Unread from "./components/pages/Unread";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   return (
     <>
-    
-      <Route exact path="/">
-        {!isLoggedIn && <Signup />}
-        {isLoggedIn && <Redirect to="/compose" />}
-      </Route>
-
-
-       {isLoggedIn && <Sidebar>
+      {!isLoggedIn && (
+        <Route path="/">
+          <Signup />
+        </Route>
+      )}
+      {isLoggedIn && (
+        <Sidebar>
           <Route path="/compose">
             <Compose />
           </Route>
           <Route path="/sent">
             <Sent />
           </Route>
-        <Switch>
           <Route exact path="/inbox">
             <Inbox />
+          </Route>
+          <Route exact path="/unread">
+            <Unread />
           </Route>
           <Route path="/inbox/:messageId">
             <ViewReceivedMessage />
           </Route>
-          </Switch>
-      {/* <Route path='*'>
-      {!isLoggedIn && <Redirect to='/' />}
-      {isLoggedIn && <Redirect to='/compose' />}
-      </Route> */}
-        </Sidebar>}
+        </Sidebar>
+      )}
+      {!isLoggedIn && <Route path='*'>
+        <Redirect to='/'/>
+        </Route>}
+        {isLoggedIn && <Route path='*'>
+          <Redirect to='inbox' />
+        </Route>
 
+        }
     </>
   );
 }

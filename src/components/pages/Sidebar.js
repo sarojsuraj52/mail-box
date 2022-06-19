@@ -1,7 +1,9 @@
 import "./Sidebar.css";
 import { NavLink,  } from "react-router-dom";
 import Header from './Header'
+import { useSelector } from "react-redux";
 const Sidebar = (props) => {
+  const unreadLength = useSelector(state=>state.mail.unread);
   return (
     <>
     <Header />
@@ -21,6 +23,11 @@ const Sidebar = (props) => {
           <li>
             <NavLink activeClassName="active" to="/sent">
               Sent
+            </NavLink>
+          </li>
+          <li>
+            <NavLink activeClassName="active" to="/unread">
+              Unread <span id='unread-mails-count'>{unreadLength}</span>
             </NavLink>
           </li>
         </ul>

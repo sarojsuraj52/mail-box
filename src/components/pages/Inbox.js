@@ -10,28 +10,32 @@ const Sent = () => {
 
   const getMail = useCallback(async () => {
     try {
-      const res = await fetch(
-        `https://mail-box-1af88-default-rtdb.firebaseio.com/mails.json`
-      );
-      const data = await res.json();
-      if (res.ok) {
-        let MailArr = [];
-        MailArr = Object.entries(data);
-        dispatch(mailActions.setMails(MailArr));
-      } else {
-        let errMsg = `Couldn't retrieve sent mails`;
-        if (data && data.error && data.error.message) {
-          errMsg = data.error.message;
+      setInterval(async()=>{
+        
+        const res = await fetch(
+          `https://mail-box-1af88-default-rtdb.firebaseio.com/mails.json`
+          );
+          const data = await res.json();
+          if (res.ok) {
+            let MailArr = [];
+            MailArr = Object.entries(data);
+            dispatch(mailActions.setMails(MailArr));
+            dispatch(mailActions.updateUnread())
+          } else {
+            let errMsg = `Couldn't retrieve sent mails`;
+            if (data && data.error && data.error.message) {
+              errMsg = data.error.message;
+            }
+            throw new Error(errMsg);
+          }
+        },2000)
+        } catch (err) {
+          alert(err);
         }
-        throw new Error(errMsg);
-      }
-    } catch (err) {
-      alert(err);
-    }
-  }, [dispatch]);
-
+    }, [dispatch]);
+      
   useEffect(() => {
-    getMail();
+    getMail()
   }, [getMail]);
 
   const deleteMailHandler = async (id) => {
@@ -56,7 +60,7 @@ const Sent = () => {
       <Link className="paramsLink" to={`/inbox/${item[0]}`}>
         <div className="sent-to">
           <span>
-            <i className="fa-solid fa-circle-arrow-right"></i> <b>From</b>:
+            <i className="fa-solid fa-circle-arrow-right"></i> <b>From</b> :  {' '}
             {item[1].sender}
           </span>
         </div>

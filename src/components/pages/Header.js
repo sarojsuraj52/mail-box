@@ -9,6 +9,7 @@ const Header = () => {
   const logoutHandler = () =>{
     dispatch(authActions.loggingout())
     history.replace('/')
+    window.location.reload()
   }
   return (
     <>

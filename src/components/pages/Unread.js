@@ -1,16 +1,17 @@
-import "./Sent.css";
 import { Link } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux/es/exports";
 import { mailActions } from "../../store/mail-slice";
-const Sent = () => {
+const Unread = () => {
   const senderEmail = useSelector((state) => state.auth.email);
   const mails = useSelector(state=> state.mail.mails)
   const dispatch = useDispatch()
 
   const deleteMailHandler = async(id)=>{
+    console.log(id)
     const res = await fetch(`https://mail-box-1af88-default-rtdb.firebaseio.com/mails/${id}.json`,{
       method:'DELETE'
     })
+    console.log(res)
     if(res.ok){
       alert('Mail deleted')
       dispatch(mailActions.removeMail(id))
@@ -20,15 +21,16 @@ const Sent = () => {
     }
   }
 
-  const sent = mails.filter((item) => senderEmail === item[1].sender);
-  const content = sent.map((item) => (
+  const received = mails.filter((item) => senderEmail === item[1].receiver);
+  const unread = received.filter(item=> item[1].read === false)
+  const content = unread.map((item) => (
     <li key={item[0]}  className="sent-list">
       <Link className="paramsLink" to={`/inbox/${item[0]}`}>
       <div className="sent-to">
         <span>
           {" "}
-          <i className="fa-solid fa-circle-arrow-right"></i> <b>To</b> :{" "}
-          {item[1].receiver}{" "}
+          <i className="fa-solid fa-circle-arrow-right"></i> <b>From</b> :{" "}
+          {item[1].sender}{" "}
         </span>
       </div>
       <div className="sent-subject">
@@ -40,4 +42,4 @@ const Sent = () => {
   ));
   return <div className="sent">{content}</div>;
 };
-export default Sent;
+export default Unread;
