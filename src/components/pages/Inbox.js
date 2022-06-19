@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { mailActions } from "../../store/mail-slice";
+
+let initialrender = true
+
 const Sent = () => {
   const senderEmail = useSelector((state) => state.auth.email);
   const mails = useSelector((state) => state.mail.mails);
@@ -11,7 +14,6 @@ const Sent = () => {
   const getMail = useCallback(async () => {
     try {
       setInterval(async()=>{
-        
         const res = await fetch(
           `https://mail-box-1af88-default-rtdb.firebaseio.com/mails.json`
           );
@@ -21,6 +23,7 @@ const Sent = () => {
             MailArr = Object.entries(data);
             dispatch(mailActions.setMails(MailArr));
             dispatch(mailActions.updateUnread())
+            initialrender = false
           } else {
             let errMsg = `Couldn't retrieve sent mails`;
             if (data && data.error && data.error.message) {
@@ -55,7 +58,7 @@ const Sent = () => {
   const sent = mails.filter(
     (item) => senderEmail !== item[1].sender && senderEmail === item[1].receiver
   );
-  const content = sent.map((item) => (
+  let content = sent.map((item) => (
     <li key={item[0]} className="sent-list">
       <Link className="paramsLink" to={`/inbox/${item[0]}`}>
         <div className="sent-to">
@@ -78,6 +81,15 @@ const Sent = () => {
       </button>
     </li>
   ));
-  return <div className="sent">{content}</div>;
+
+   if (initialrender ===true){
+    content = <p className="err-msg">Loading...</p>
+  }
+
+  return <div className="sent">
+    <span className="page-heading">Inbox</span>
+    <span className="mail-h2">Get your received mails here</span>
+    {content}
+    </div>;
 };
 export default Sent;

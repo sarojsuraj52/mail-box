@@ -40,6 +40,10 @@ const Unread = () => {
       <button onClick={()=> deleteMailHandler(item[0])} className="deleteMailBtn"><i className="fa fa-trash" aria-hidden="true"></i> Delete</button>
     </li>
   ));
-  return <div className="sent">{content}</div>;
+  return <div className="sent">
+      <span className="page-heading">Unread</span>
+    <span className="mail-h2">Get your unread mails here</span>
+    {content}
+    </div>;
 };
 export default Unread;

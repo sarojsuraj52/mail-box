@@ -66,7 +66,8 @@ const Home = () => {
 
   return (
     <section className="home-container">
-      <h1>Welcome to Mail box</h1>
+        <span className="page-heading">Compose</span>
+     <span className="mail-compose-heading">Compose your mails here</span>
       <div className="mail-box">
         <form onSubmit={submitHandler}>
           <div className="to">

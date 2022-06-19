@@ -1,8 +1,6 @@
 .sent {
   display: flex;
   flex-direction: column;
-  /* height: 100%;
-    width: 100%; */
 }
 .sent-list {
   display: flex;
@@ -20,7 +18,7 @@
 }
 
 .sent-to {
-  width: 35%;
+  width: 40%;
 }
 .sent-subject {
   width: 40%;
@@ -46,4 +44,25 @@
 }
 .deleteMailBtn:hover{
   background-color: red;
+}
+.err-msg{
+  text-align: center;
+  margin-top: 2rem;
+}
+.mail-h2{
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  padding-bottom: 2rem;
+  text-align: center;
+  border-bottom: 1px solid grey;
+}
+
+.page-heading{
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 600;
+  font-family:ui-rounded;
+  color: purple;
 }
